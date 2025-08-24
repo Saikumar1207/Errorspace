@@ -15,11 +15,12 @@ function Signup() {
     setSuccess("");
 
     try {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/api/signup', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/signup`, {  // use backticks
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ userName: username, email, password }), // keep consistent naming
       });
+
 
       const data = await response.json();
 
@@ -39,14 +40,14 @@ function Signup() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
       <nav className="flex items-center justify-between px-8 py-4 bg-gray-50 shadow-sm">
-      <h1 className="text-xl font-bold text-gray-900">ErrorSpace</h1>
-      <Link
-      to="/login"
-      className="bg-purple-500 text-white font-medium px-4 py-2 rounded-full hover:bg-purple-600 transition"
-    >
-    Log In
-    </Link>
-  </nav>
+        <h1 className="text-xl font-bold text-gray-900">ErrorSpace</h1>
+        <Link
+          to="/login"
+          className="bg-purple-500 text-white font-medium px-4 py-2 rounded-full hover:bg-purple-600 transition"
+        >
+          Log In
+        </Link>
+      </nav>
 
 
       {/* Signup form */}
