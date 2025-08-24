@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import phishing from '../../images/phising.webp'
+import password from '../../images/password.jpg'
 
 const BellIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -104,11 +106,11 @@ export default function Quizzes() {
               {/* Right: image */}
               <div className="justify-self-end w-full md:w-96 h-40 rounded-2xl overflow-hidden bg-gray-200">
                 <img
-                  src={q.img}
-                  alt={q.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => (e.currentTarget.style.display = "none")}
-                />
+                                src={password}
+                                alt="Lock"
+                                className="w-full h-full object-cover"
+                                onError={(e) => (e.currentTarget.style.display = "none")}
+                              />
               </div>
             </div>
           ))}

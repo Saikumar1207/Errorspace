@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import phishing from '../../images/phising.webp'
+import password from '../../images/password.jpg'
 
 const BellIcon = (props) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
@@ -15,7 +17,14 @@ const ShieldIcon = (props) => (
 );
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   const progress = 60; // % complete
+  const isLoggedIn = !!localStorage.getItem("token"); // check login
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login"); // redirect to login after logout
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -32,15 +41,42 @@ export default function Dashboard() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button
-              className="h-9 w-9 flex items-center justify-center rounded-full bg-white border text-gray-600 hover:text-purple-600"
-              aria-label="Notifications"
-            >
-              <BellIcon className="h-5 w-5" />
-            </button>
-            <div className="h-9 w-9 rounded-full bg-gray-300 overflow-hidden ring-2 ring-white">
-              {/* put user avatar here if you have one */}
-            </div>
+            {!isLoggedIn && (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-2 rounded-full bg-purple-500 text-white hover:bg-purple-600 transition"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="px-4 py-2 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 transition"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+
+            {isLoggedIn && (
+              <>
+                <button
+                  className="h-9 w-9 flex items-center justify-center rounded-full bg-white border text-gray-600 hover:text-purple-600"
+                  aria-label="Notifications"
+                >
+                  <BellIcon className="h-5 w-5" />
+                </button>
+                <div className="h-9 w-9 rounded-full bg-gray-300 overflow-hidden ring-2 ring-white">
+                  {/* put user avatar here */}
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 transition"
+                >
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -69,9 +105,8 @@ export default function Dashboard() {
             </div>
 
             <div className="justify-self-end w-full md:w-96 h-40 rounded-2xl overflow-hidden bg-gray-200">
-              {/* Replace src with your image: /public/images/envelope.png */}
               <img
-                src="/images/envelope.png"
+                src={phishing}
                 alt="Envelope"
                 className="w-full h-full object-cover"
                 onError={(e) => (e.currentTarget.style.display = "none")}
@@ -95,9 +130,8 @@ export default function Dashboard() {
             </div>
 
             <div className="justify-self-end w-full md:w-96 h-40 rounded-2xl overflow-hidden bg-gray-200">
-              {/* Replace src with your image: /public/images/lock.png */}
               <img
-                src="/images/lock.png"
+                src={password}
                 alt="Lock"
                 className="w-full h-full object-cover"
                 onError={(e) => (e.currentTarget.style.display = "none")}
@@ -109,12 +143,10 @@ export default function Dashboard() {
         {/* Progress */}
         <section className="mt-12">
           <h3 className="text-lg font-semibold">Cyber Awareness Training Progress</h3>
-
           <div className="mt-4 flex items-center justify-between text-sm">
             <span>Cyber Awareness Training</span>
             <span className="text-gray-500">{progress}%</span>
           </div>
-
           <div className="mt-2 h-2 rounded-full bg-gray-200">
             <div
               className="h-2 rounded-full bg-purple-400"
@@ -125,7 +157,6 @@ export default function Dashboard() {
               aria-valuenow={progress}
             />
           </div>
-
           <p className="text-xs text-gray-500 mt-2">
             Complete the training to earn more coins
           </p>
@@ -145,9 +176,7 @@ export default function Dashboard() {
         {/* Recent Activity */}
         <section className="mt-12">
           <h3 className="text-lg font-semibold">Recent Activity</h3>
-
           <ul className="mt-4 space-y-4">
-            {/* Item 1 */}
             <li className="flex items-start gap-3">
               <div className="h-9 w-9 rounded-xl bg-white border flex items-center justify-center">
                 <ShieldIcon className="h-5 w-5 text-gray-600" />
@@ -157,8 +186,6 @@ export default function Dashboard() {
                 <p className="text-xs text-gray-500">Completed Phishing Awareness Quiz</p>
               </div>
             </li>
-
-            {/* Item 2 */}
             <li className="flex items-start gap-3">
               <div className="h-9 w-9 rounded-xl bg-white border flex items-center justify-center">
                 <ShieldIcon className="h-5 w-5 text-gray-600" />
