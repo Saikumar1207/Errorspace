@@ -7,7 +7,7 @@ import Quizzes from "./pages/Quizzes";
 import Choice from "./pages/Choice";
 import TrueFalsePage from "./pages/TrueFalsePage";
 import Rewards from "./pages/Rewards";
-import LeaderBoardPage from "./pages/LeaderBoardPage";
+import LeaderBoardPage from "./pages/LeaderboardPage";
 import Profile from "./pages/Profile";
 
 export default function App() {
